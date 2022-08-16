@@ -1,6 +1,27 @@
+
+interface WorkerPoolOptions {
+  location: string;
+  maxWorkers: number;
+  terminateWorker: boolean;
+}
+
+interface Task {
+  _execute(_getWorker: () => Promise<Worker>): Task;
+  _worker: Worker;
+  done: Promise<any>;
+}
+
 class WorkerExecutor {
+  _workerPool: Worker[];
+  _taskQueue: Task[];
+  _workersInUse: number;
+  _maxWorkers: number;
+  _terminateWorker: boolean;
+  _scriptURL: string;
+
+
   constructor(
-    workerName,
+    workerName: string,
     { location = '/js/', maxWorkers = 2, terminateWorker = false } = {}
   ) {
     this._workerPool = [];
@@ -13,13 +34,13 @@ class WorkerExecutor {
     this._getWorker = this._getWorker.bind(this);
   }
 
-  async _getWorker() {
+  async _getWorker(): Promise<Worker> {
     return this._workerPool.length
-      ? this._workerPool.shift()
+      ? this._workerPool.shift()!
       : this._createWorker();
   }
 
-  _createWorker() {
+  _createWorker(): Promise<Worker> {
     return new Promise((resolve, reject) => {
       const newWorker = new Worker(this._scriptURL);
       newWorker.onmessage = e => {
@@ -31,7 +52,7 @@ class WorkerExecutor {
     });
   }
 
-  _handleTaskEnd(task) {
+  _handleTaskEnd(task: Task) {
     return () => {
       this._workersInUse--;
       const worker = task._worker;
@@ -50,16 +71,16 @@ class WorkerExecutor {
 
   _processQueue() {
     while (this._workersInUse < this._maxWorkers && this._taskQueue.length) {
-      const task = this._taskQueue.shift();
+      const task = this._taskQueue.shift()!;
       const handleTaskEnd = this._handleTaskEnd(task);
       task._execute(this._getWorker).done.then(handleTaskEnd, handleTaskEnd);
       this._workersInUse++;
     }
   }
 
-  execute(data, timeout = 1000) {
+  execute(data: any, timeout = 1000) {
     const task = eventify({});
-    task._execute = function (getWorker) {
+    task._execute = function (getWorker: () => Promise<Worker>) {
       getWorker().then(
         worker => {
           task._worker = worker;
@@ -95,8 +116,8 @@ class WorkerExecutor {
 
     task.done = new Promise((resolve, reject) => {
       task
-        .once('done', data => resolve(data))
-        .once('error', err => reject(err.message));
+        .once('done', (data: any) => resolve(data))
+        .once('error', (err: Error) => reject(err.message));
     });
 
     this._taskQueue.push(task);
@@ -148,6 +169,6 @@ const eventify = self => {
   return self;
 };
 
-export default function createWorkerExecutor(workerName, options) {
+export default function createWorkerExecutor(workerName: string, options: WorkerPoolOptions) {
   return new WorkerExecutor(workerName, options);
 }

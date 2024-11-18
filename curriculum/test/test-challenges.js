@@ -123,11 +123,12 @@ async function setup() {
     [
       process.env.FCC_BLOCK,
       process.env.FCC_CHALLENGE_ID,
+      process.env.FCC_CHALLENGE_IDS,
       process.env.FCC_SUPERBLOCK
     ].filter(Boolean).length > 1
   ) {
     throw new Error(
-      `Please use at most single input from: block, challenge id, superblock.`
+      `Please use at most single input from: block, challenge id, challenge ids, superblock.`
     );
   }
 
@@ -225,6 +226,34 @@ async function setup() {
     }
   }
 
+  if (process.env.FCC_CHALLENGE_IDS) {
+    console.log(
+      `\nChallenge Ids being tested: ${process.env.FCC_CHALLENGE_IDS}`
+    );
+    const ids = process.env.FCC_CHALLENGE_IDS.trim().split(/[\s,]+/);
+    let challengesToTest = [];
+    for (let i = 0; i < ids.length; i++) {
+      const challengeIndex = challenges.findIndex(
+        challenge => challenge.id === ids[i]
+      );
+      if (challengeIndex === -1) {
+        throw new Error(`No challenge found with id "${ids[i]}"`);
+      }
+      const { solutions = [] } = challenges[challengeIndex];
+      if (isEmpty(solutions)) {
+        // Project based curriculum usually has solution for current challenge in
+        // next challenge's seed.
+        challengesToTest.push(
+          ...challenges.slice(challengeIndex, challengeIndex + 2)
+        );
+      } else {
+        // Only one challenge is tested, but tests assume challenges is an array.
+        challengesToTest.push(challenges[challengeIndex]);
+      }
+    }
+    challenges = challengesToTest;
+  }
+
   const meta = {};
   for (const challenge of challenges) {
     const dashedBlockName = challenge.block;
@@ -285,7 +314,11 @@ function populateTestsForLang({ lang, challenges, meta, superBlocks }) {
   const challengeTitles = new ChallengeTitles();
   const validateChallenge = challengeSchemaValidator();
 
-  if (!process.env.FCC_BLOCK && !process.env.FCC_CHALLENGE_ID) {
+  if (
+    !process.env.FCC_BLOCK &&
+    !process.env.FCC_CHALLENGE_ID &&
+    !process.env.FCC_CHALLENGE_IDS
+  ) {
     describe('Assert meta order', function () {
       const superBlocks = new Set([
         ...Object.values(meta).map(el => el.superBlock)
@@ -336,6 +369,7 @@ function populateTestsForLang({ lang, challenges, meta, superBlocks }) {
           // challenge to test (current challenge) might not have solution.
           // Instead seed from next challenge is tested against tests from
           // current challenge. Next challenge is skipped from testing.
+
           if (process.env.FCC_CHALLENGE_ID && id > 0) return;
 
           const dashedBlockName = challenge.block;

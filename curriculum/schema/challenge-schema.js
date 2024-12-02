@@ -238,7 +238,8 @@ const schema = Joi.object()
       is: [
         challengeTypes.video,
         challengeTypes.multipleChoice,
-        challengeTypes.theOdinProject
+        challengeTypes.theOdinProject,
+        challengeTypes.generic
       ],
       then: Joi.array().items(questionJoi).min(1).required(),
       otherwise: Joi.array().length(0)

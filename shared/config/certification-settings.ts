@@ -342,7 +342,8 @@ export const superBlockToCertMap: {
   [SuperBlocks.SemanticHtml]: null,
   [SuperBlocks.DevPlayground]: null,
   [SuperBlocks.FullStackOpen]: null,
-  [SuperBlocks.FullStackDeveloper]: null
+  [SuperBlocks.FullStackDeveloper]: null,
+  [SuperBlocks.VideoGameChallenge]: null
 };
 
 export const certificationRequirements: Partial<

@@ -9048,6 +9048,12 @@
       }
     }
   },
+  "video-game-challenge": {
+    "title": "Challenges Inspired by Video Games",
+    "blocks": {
+      "human-resource-machine": { "title": "Human Resource Machine" }
+    }
+  },
   "daily-coding-challenge": {
     "title": "Daily Coding Challenge",
     "blocks": {

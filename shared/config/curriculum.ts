@@ -41,7 +41,8 @@ export enum SuperBlocks {
   PythonV9 = 'python-v9',
   RelationalDbV9 = 'relational-databases-v9',
   BackEndDevApisV9 = 'back-end-development-and-apis-v9',
-  FullStackDeveloperV9 = 'full-stack-developer-v9'
+  FullStackDeveloperV9 = 'full-stack-developer-v9',
+  VideoGameChallenge = 'video-game-challenge'
 }
 
 export const languageSuperBlocks = [
@@ -137,7 +138,8 @@ export const superBlockStages: StageMap = {
     SuperBlocks.TheOdinProject,
     SuperBlocks.CodingInterviewPrep,
     SuperBlocks.ProjectEuler,
-    SuperBlocks.RosettaCode
+    SuperBlocks.RosettaCode,
+    SuperBlocks.VideoGameChallenge
   ],
   [SuperBlockStage.Legacy]: [
     SuperBlocks.RespWebDesignNew,

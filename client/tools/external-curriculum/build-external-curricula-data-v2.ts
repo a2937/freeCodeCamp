@@ -204,6 +204,11 @@ export const orderedSuperBlockInfo: OrderedSuperBlocks = {
       dashedName: SuperBlocks.RosettaCode,
       public: false,
       title: intros[SuperBlocks.RosettaCode].title
+    },
+    {
+      dashedName: SuperBlocks.VideoGameChallenge,
+      public: false,
+      title: intros[SuperBlocks.VideoGameChallenge].title
     }
   ],
 

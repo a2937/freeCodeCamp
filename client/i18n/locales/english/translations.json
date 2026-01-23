@@ -1432,5 +1432,8 @@
         "advanced": "Advanced"
       }
     }
+  },
+  "lectures": {
+    "title": "Lecture Collection"
   }
 }

@@ -261,6 +261,7 @@ export type ChallengeNode = {
     title: string;
     transcript: string;
     translationPending: boolean;
+    tokens?: string[];
     url: string;
     usesMultifileEditor: boolean;
     videoId: string;
@@ -509,6 +510,7 @@ export type ChallengeMeta = {
   superBlock: SuperBlocks | 'daily-coding-challenge';
   title?: string;
   challengeType?: number;
+  tokens?: string[];
   helpCategory: string;
   disableLoopProtectTests: boolean;
   disableLoopProtectPreview: boolean;

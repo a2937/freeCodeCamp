@@ -284,6 +284,7 @@ type Challenge {
   isExam: Boolean
   showSpeakingButton: Boolean
   inputType: String
+  tokens: [String]
 }
 
 type BilibiliIds {

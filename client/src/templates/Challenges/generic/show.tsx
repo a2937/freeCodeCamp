@@ -109,6 +109,7 @@ const ShowGeneric = ({
         questions,
         tests,
         title,
+        tokens,
         transcript,
         translationPending,
         scene,
@@ -142,6 +143,7 @@ const ShowGeneric = ({
       title,
       challengeType,
       helpCategory,
+      tokens,
       ...challengePaths
     });
     challengeMounted(challengeMeta.id);
@@ -384,6 +386,7 @@ export const query = graphql`
           cid
         }
         block
+        tokens
         challengeType
         description
         nodules {

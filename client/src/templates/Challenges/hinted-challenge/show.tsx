@@ -204,16 +204,14 @@ const ShowHintedChallenge = ({
     () => !!store.get('showInteractiveEditor')
   );
 
+  // TODO: Have it show the example with modal and questions somehow??
   const toggleInteractiveEditor = () => {
     store.set('showInteractiveEditor', !showInteractiveEditor);
     setShowInteractiveEditor(!showInteractiveEditor);
   };
 
   return (
-    <Hotkeys
-      executeChallenge={handleSubmit}
-      containerRef={container}
-    >
+    <Hotkeys executeChallenge={handleSubmit} containerRef={container}>
       <LearnLayout>
         <Helmet
           title={`${blockNameTitle} | ${t('learn.learn')} | freeCodeCamp.org`}
@@ -317,9 +315,7 @@ const ShowHintedChallenge = ({
                 challengeBlock={block}
                 superBlock={superBlock}
               />
-              <ExampleModal
-                exampleCode={example}
-              />
+              <ExampleModal exampleCode={example} />
             </Row>
           </Container>
         </Container>
@@ -330,7 +326,10 @@ const ShowHintedChallenge = ({
 
 ShowHintedChallenge.displayName = 'ShowHintedChallenge';
 
-export default connect(mapStateToProps, mapDispatchToProps)(ShowHintedChallenge);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(ShowHintedChallenge);
 
 export const query = graphql`
   query GenericChallenge($id: String!) {
@@ -364,7 +363,7 @@ export const query = graphql`
           text
           testString
         }
-        title,
+        title
         example
       }
     }

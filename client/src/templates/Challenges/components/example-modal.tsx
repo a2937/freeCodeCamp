@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Dispatch, bindActionCreators } from 'redux';
 import { Button, FormControl, Modal, Spacer } from '@freecodecamp/ui';
 
-import { t } from 'i18next';
 import envData from '../../../../config/env.json';
 import { createQuestion, closeModal } from '../redux/actions';
 import { isExampleModalOpenSelector } from '../redux/selectors';
@@ -16,9 +15,6 @@ interface ExampleModalProps {
   closeExampleModal: () => void;
   createQuestion: (description: string) => void;
   isOpen?: boolean;
-  challengeTitle: string;
-  challengeBlock: string;
-  superBlock: string;
   exampleCode: string;
 }
 
@@ -35,8 +31,6 @@ const mapDispatchToProps = (dispatch: Dispatch) =>
     { createQuestion, closeExampleModal: () => closeModal('help') },
     dispatch
   );
-
-
 
 function ExampleModal({
   closeExampleModal,
@@ -108,16 +102,12 @@ function ExampleModal({
                 {t('learn.must-confirm-statements')}
               </legend>
 
-
               <Spacer size='xs' />
-
             </fieldset>
 
             <Spacer size='s' />
 
-            <code id="help-code">
-              {exampleCode}
-            </code>
+            <code id='help-code'>{exampleCode}</code>
 
             <FormControl
               id='help-modal-form-description'

@@ -31,6 +31,7 @@ const dailyChallengeJs = 28;
 const dailyChallengePy = 29;
 const examDownload = 30;
 const review = 31;
+const hintedChallenge = 32;
 
 export const challengeTypes = {
   html,
@@ -65,7 +66,8 @@ export const challengeTypes = {
   dailyChallengeJs,
   dailyChallengePy,
   examDownload,
-  review
+  review,
+  hintedChallenge
 };
 
 export const hasNoSolution = (challengeType: number): boolean => {

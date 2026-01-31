@@ -25,6 +25,7 @@ import {
   isHelpModalOpenSelector,
   isProjectPreviewModalOpenSelector,
   isResetModalOpenSelector,
+  isExampleModalOpenSelector,
   isShortcutsModalOpenSelector
 } from '../redux/selectors';
 import './hotkeys.css';
@@ -32,6 +33,7 @@ import { isProjectBased } from '../../../utils/curriculum-layout';
 import type { EditorProps } from '../classic/editor';
 
 const mapStateToProps = createSelector(
+  isExampleModalOpenSelector,
   isHelpModalOpenSelector,
   isResetModalOpenSelector,
   isShortcutsModalOpenSelector,
@@ -43,6 +45,7 @@ const mapStateToProps = createSelector(
   challengeMetaSelector,
   (
     isHelpModalOpen: boolean,
+    isExampleModalOpen: boolean,
     isResetModalOpen: boolean,
     isShortcutsModalOpen: boolean,
     isProjectPreviewModalOpen: boolean,
@@ -53,6 +56,7 @@ const mapStateToProps = createSelector(
     { nextChallengePath, prevChallengePath }: ChallengeMeta
   ) => ({
     isHelpModalOpen,
+    isExampleModalOpen,
     isResetModalOpen,
     isShortcutsModalOpen,
     isProjectPreviewModalOpen,

@@ -269,6 +269,7 @@ export type ChallengeNode = {
     videoUrl: string;
     chapter?: string;
     module?: string;
+    example: string;
   };
 };
 

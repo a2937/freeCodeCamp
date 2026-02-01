@@ -130,7 +130,8 @@ export const viewTypes = {
   [dailyChallengeJs]: 'classic',
   [dailyChallengePy]: 'classic',
   [examDownload]: 'examDownload',
-  [review]: 'generic'
+  [review]: 'generic',
+  [hintedChallenge]: 'hinted-challenge'
 };
 
 // determine the type of submit function to use for the challenge on completion
@@ -169,7 +170,8 @@ export const submitTypes = {
   [dailyChallengeJs]: 'tests',
   [dailyChallengePy]: 'tests',
   [examDownload]: 'examDownload',
-  [review]: 'tests'
+  [review]: 'tests',
+  [hintedChallenge]: 'step'
 };
 
 const dailyCodingChallengeTypes = [

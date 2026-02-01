@@ -11,7 +11,7 @@ function addExamples() {
     // Not all challenges have exampls (video challenges, for example), so we stop
     // processing in these cases.
     if (isEmpty(seedTree.children)) return;
-    const contentsTree = root(getSection(seedTree, `--examples-contents--`));
+    const contentsTree = root(getSection(seedTree, `--example-contents--`));
     const examples = {};
 
     // While before and after code are optional, the contents are not
@@ -21,11 +21,11 @@ function addExamples() {
       );
 
     const visitForContents = visitChildren(
-      getFileVisitor(examples, 'contents')
+      getFileVisitor(examples, 'example-contents')
     );
 
     visitForContents(contentsTree);
-    const seedVals = Object.values(examples);
+    const seedVals = examples;
     file.data = {
       ...file.data,
       exampleCode: seedVals

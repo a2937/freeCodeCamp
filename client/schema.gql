@@ -303,6 +303,7 @@ type FileContents {
   path: String
   error: String
   seed: String
+  exampleCode: String
   id: String
   history: [String]
 }

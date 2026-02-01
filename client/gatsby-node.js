@@ -102,6 +102,7 @@ exports.createPages = async function createPages({
                 tail
                 history
                 fileKey
+                exampleCode
               }
               saveSubmissionToDB
               solutions {
